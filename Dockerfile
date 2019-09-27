@@ -1,10 +1,13 @@
 FROM nginx:stable
 
-MAINTAINER Andrey Sizov, andrey.sizov@jetbrains.com
+MAINTAINER p4t0k, p4t0k@asocial.cz
 
 COPY default.conf.template /etc/nginx/conf.d/
+COPY najezd_download.py /usr/local/bin/
 
 EXPOSE 80
 
-CMD /bin/bash -c "envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf \	
+RUN apk add python2
+
+CMD /bin/bash -c "(while true ; do /usr/local/bin/najezd_download.py ; sleep 24h ; done) & ; envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf \	
 			&& nginx -g 'daemon off;'"

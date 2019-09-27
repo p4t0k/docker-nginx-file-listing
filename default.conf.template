@@ -12,7 +12,7 @@ server {
     }
     
     location / {
-       alias /mnt/data/;
+       alias /mnt/najezd_data/;
        expires -1;
        autoindex on;
        default_type text/plain;
